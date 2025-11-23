@@ -3,3 +3,4 @@ uvicorn
 langgraph 
 pymongo 
 python-dotenv
+pytesseract

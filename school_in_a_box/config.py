@@ -43,9 +43,9 @@ MONGO_DB_NAME: str = os.getenv("MONGO_DB_NAME", "School In a Box")
 EMBEDDING_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Core LLMs (we can keep them same for now and specialize later if needed)
-LLM_MODEL_EXPLAINER: str = "qwen2.5-vl-32b-instruct"
-LLM_MODEL_QUIZ: str = "qwen2.5-vl-32b-instruct"
-LLM_MODEL_COACH: str = "qwen2.5-vl-32b-instruct"
+LLM_MODEL_EXPLAINER: str = "x-ai/grok-4.1-fast"
+LLM_MODEL_QUIZ: str = "x-ai/grok-4.1-fast"
+LLM_MODEL_COACH: str = "x-ai/grok-4.1-fast"
 
 # --- Vector store selection ---
 
