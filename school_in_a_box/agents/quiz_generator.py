@@ -29,35 +29,44 @@ class MCQ:
     difficulty: str = "medium"
 
 
-def _build_quiz_prompt(content: str, num_questions: int, difficulty: str) -> str:
-    """
-    Prompt for generating structured MCQs in JSON.
-    """
+def _build_quiz_prompt(
+    content: str,
+    num_questions: int,
+    difficulty: str,
+) -> str:
     return f"""
-You are a quiz generator for students.
+ROLE:
+You are a Quiz Generator Agent for an educational platform.
 
-From the content below, generate {num_questions} multiple-choice questions.
+OBJECTIVE:
+Create high-quality multiple-choice questions that test conceptual understanding.
 
-Requirements:
-- Difficulty: {difficulty}
-- Each question must have EXACTLY 4 options.
-- Only ONE correct option.
-- Output STRICT JSON with this structure (and nothing else):
-
-[
-  {{
-    "question": "string",
-    "options": ["A", "B", "C", "D"],
-    "correct_index": 0,
-    "explanation": "string (optional, can be empty)",
-    "difficulty": "{difficulty}"
-  }},
-  ...
-]
-
-Content:
+INPUT MATERIAL:
 \"\"\"{content}\"\"\"
+
+REQUIREMENTS:
+- Generate exactly {num_questions} MCQs.
+- Difficulty level: {difficulty}.
+- Each question must test understanding, not memorization.
+- Only ONE correct option per question.
+- All options must be plausible.
+
+FOR EACH QUESTION, PROVIDE:
+- question
+- options (list of strings)
+- correct_index (0-based)
+- difficulty
+- short explanation (1–2 lines, grounded in content)
+
+CONSTRAINTS:
+- Do NOT introduce concepts not present in the material.
+- Do NOT reuse wording from the content verbatim unless necessary.
+- Avoid trick questions.
+
+OUTPUT FORMAT:
+Return a JSON-style list of objects (no markdown).
 """.strip()
+
 
 
 def _parse_mcq_json(raw: str, difficulty: str) -> List[MCQ]:
