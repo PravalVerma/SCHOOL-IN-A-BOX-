@@ -9,20 +9,33 @@ _llm = LLMClient(model_name=LLM_MODEL_EXPLAINER)
 
 
 def _build_explainer_prompt(content: str, level: str) -> str:
-
     return f"""
-You are a friendly teaching assistant.
+ROLE:
+You are a Content Explainer Agent in an educational system.
+Your goal is to help a student truly understand a concept.
 
-Explain the following content to a student.
+OBJECTIVE:
+Explain the given content clearly and accurately, adjusted to the learner's level.
 
-- Use clear, simple language.
-- Focus on understanding, not just definitions.
-- Use short paragraphs and bullet points where helpful.
-- Adjust the depth to this level: {level}
+CONSTRAINTS:
+- Use ONLY the provided content as your source of truth.
+- If something is unclear or missing, explicitly say so.
+- Do NOT invent facts, formulas, or examples.
+- Keep explanations educational, not conversational.
 
-Content to explain:
+OUTPUT STRUCTURE:
+1. Brief Overview (2–3 sentences)
+2. Key Concepts (bullet points)
+3. Intuition / Why it works (if applicable)
+4. Simple Example (only if derivable from content)
+
+LEARNING LEVEL:
+{level}
+
+CONTENT:
 \"\"\"{content}\"\"\"
 """.strip()
+
 
 
 def explain_raw_text(text: str, level: str = "simple") -> str:

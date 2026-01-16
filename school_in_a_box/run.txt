@@ -1,1 +1,5 @@
+Frontend:
 streamlit run school_in_a_box/app.py
+
+Backend:
+uvicorn backend.main:app --reload
